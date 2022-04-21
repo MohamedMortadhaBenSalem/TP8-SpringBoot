@@ -4,10 +4,13 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,27 +21,24 @@ import com.mortadha.produits.service.ProduitService;
 public class ProduitController {
 @Autowired
 ProduitService produitService;
+
 @RequestMapping("/showCreate")
-public String showCreate()
+public String showCreate(ModelMap modelMap)
 {
-return "createProduit";
+modelMap.addAttribute("produit", new Produit());
+modelMap.addAttribute("mode", "new");
+return "formProduit";
 }
+
 @RequestMapping("/saveProduit")
-public String saveProduit(@ModelAttribute("produit") Produit produit,
-@RequestParam("date") String date,
-ModelMap modelMap) throws
+public String saveProduit(@Valid Produit produit,BindingResult bindingResult)
 
-ParseException
 {
-SimpleDateFormat dateformat = new SimpleDateFormat("yyyy-MM-dd");
-Date dateCreation = dateformat.parse(String.valueOf(date));
-produit.setDateCreation(dateCreation);
-
-Produit saveProduit = produitService.saveProduit(produit);
-String msg ="produit enregistré avec Id "+saveProduit.getIdProduit();
-modelMap.addAttribute("msg", msg);
-return "createProduit";
+if (bindingResult.hasErrors()) return "formProduit";
+produitService.saveProduit(produit);
+return "formProduit";
 }
+
 @RequestMapping("/ListeProduits")
 public String listeProduits(ModelMap modelMap,
 
@@ -71,13 +71,16 @@ modelMap.addAttribute("currentPage", page);
 modelMap.addAttribute("size", size);
 return "listeProduits";
 }
+
 @RequestMapping("/modifierProduit")
 public String editerProduit(@RequestParam("id") Long id,ModelMap modelMap)
 {
 Produit p= produitService.getProduit(id);
 modelMap.addAttribute("produit", p);
-return "editerProduit";
+modelMap.addAttribute("mode", "edit");
+return "formProduit";
 }
+
 @RequestMapping("/updateProduit")
 public String updateProduit(@ModelAttribute("produit") Produit produit,
 @RequestParam("date") String date,
