@@ -25,15 +25,17 @@ src="webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 Produits
 </a>
 <div class="dropdown-menu">
-<a class="dropdown-item" th:href="@{showCreate}">Ajouter</a>
-<a class="dropdown-item" th:href="@{ListeProduits}">Lister</a>
+        <a class="dropdown-item" th:href="@{showCreate}">Ajouter Produit</a>
+        <a class="dropdown-item" th:href="@{ListeProduits}">Lister Produits</a>
+          <a class="dropdown-item" th:href="@{showCreateCat}">Ajouter Categorie</a>
+         <a class="dropdown-item" th:href="@{ListeCat}">Lister Categories</a>
 </div>
 </li>
 </ul>
 <ul class="navbar-nav ml-auto" >
 <li class="nav-item dropdown">
 <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-[username]
+Mohamed Mortadha Ben Salem
 </a>
 <div class="dropdown-menu">
 <a class="dropdown-item" href="#">login</a>

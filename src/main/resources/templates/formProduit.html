@@ -40,8 +40,26 @@ th:value="${produit.prixProduit}" />
 th:value="${produit.dateCreation}"/>
 <span th:errors=${produit.dateCreation} class="text-danger"> </span>
 </div>
+<div th:if="${mode=='new'}">
+<div class="form-group"> 
+<label class="control-label">Categorie :</label>
+ <select name="categorie" class="form-control" required>
+ <option th:each="c : ${categories}" th:value="${c.idCat}" th:text="${c.nomCat}"></option>
+ </select>
+</div>
+</div>
+<div th:if="${mode=='edit'}">
+<div class="form-group"> 
+<label class="control-label">Categorie :</label>
+ <select name="categorie" class="form-control" required>
+  <option th:value="${produit.categorie.idCat}" th:text="${produit.categorie.nomCat}" selected></option>
+ <option th:each="c : ${categories}" th:value="${c.idCat}" th:text="${c.nomCat}"></option>
+ </select>
+</div>
+</div>
+
 <div>
-<button type="submit" class="btn btn-primary">Ajouter</button>
+<button type="submit" class="btn btn-primary">Valider</button>
 </div>
 </form>
 
