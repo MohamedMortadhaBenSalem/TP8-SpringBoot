@@ -30,6 +30,10 @@ CatService catService;
 public String showCreate(ModelMap modelMap)
 {
 List<Categorie> cats = catService.findAll();
+Produit prod = new Produit();
+Categorie cat = new Categorie();
+cat = cats.get(0); // prendre la première catégorie de la liste
+prod.setCategorie(cat); //affedter une catégorie par défaut au produit pour éviter le pb avec une catégorie null
 modelMap.addAttribute("categories", cats);
 modelMap.addAttribute("produit", new Produit());
 modelMap.addAttribute("mode", "new");

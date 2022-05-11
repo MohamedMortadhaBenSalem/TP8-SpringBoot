@@ -21,7 +21,7 @@
      <td th:text="${c.idCat}"></td>
      <td th:text="${c.nomCat}"></td>
         <td th:text="${c.descriptionCat}"></td>
-     <td><a class="btn btn-danger" onclick="return confirm('Etes-vous sur ?')" th:href="@{supprimerCategorie(id=${c.idCat})}">Supprimer</a> &nbsp;
+     <td><td sec:authorize="hasRole('ADMIN')" ><a class="btn btn-danger" onclick="return confirm('Etes-vous sur ?')" th:href="@{supprimerCategorie(id=${c.idCat})}">Supprimer</a> &nbsp;
     <a class="btn btn-success" th:href="@{modifierCategorie(id=${c.idCat})}">Editer</a>
      </tr> 
      </table>
